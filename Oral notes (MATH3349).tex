@@ -1,0 +1,68 @@
+\documentclass[11pt]{article}
+\usepackage{styles} 
+\renewcommand{\S}{\mathcal{S}}
+\title{The Dirac spectra of spheres}
+\begin{document}
+\maketitle
+\section{Background}
+We give the key ideas behind the computation of the Dirac spectrum of a sphere $S^n$, for $n \geq 2$ so that we have a unique spin structure. On a high level, we show that the spinor bundle on the sphere admits two ``nice'' trivialisations, and relate the Dirac operator to the Laplacian, whose spectrum is much better understood. We will mostly focus on why we should expect the various parts of the computation should work in the way that they do.
+\section{Killing spinors}
+An \emph{$\a$-Killing spinor} $\psi \in \Gamma(\S_M)$ is such that $\nabla_X\psi = \a X \cdot \psi$ for any $X \in TM$. Note that for such a spinor, under the Dirac operator we obtain
+$$
+    D\psi = \sum_{k = 1}^n e_j \cdot \nabla_{e_j}\psi = -n\a\psi
+$$
+so that such a spinor is a $-n\a$-eigenvector. The claim is that $\S_{S^n}$ admits trivialisations by $\mu$-Killing spinors for $\mu = \pm\frac12$, and to see this we use that $S^n \subseteq \R^{n + 1}$ is an oriented hypersurface. Indeed, for (immersed) oriented hypersurfaces $i : M^n \to \R^{n + 1}$ with unit normal $\nu$, we get an induced spin structure and we can classify the spinor bundle and Clifford multiplication of $M$ in terms of $\R^{n + 1}$:
+$$
+    \Delta_{n + 1}|_M = \begin{cases}
+        \S_M & n \text{ even} \\
+        \S_M \oplus \S_M &n \text{ odd}
+    \end{cases}
+$$
+and
+$$
+    X \cdot \nu \cdot \psi = \begin{cases}
+        X \cdot_M \psi &n \text{ even} \\
+        X \cdot_M \psi^+ - X \cdot_M \psi^- &n \text{ odd}
+    \end{cases}
+$$
+where $\psi = \psi^+ + \psi^-$ is the decomposition from the positive and negative parts of $\Delta_{n + 1}|_M$. We further have the relation
+$$
+    \tilde\nabla_X\varphi = \nabla_X\varphi + \frac12\W(X) \cdot \nu \cdot \varphi
+$$
+where $\W$ is the Weingarten map of $M$, $\tilde\nabla$ the spin connection on $\R^{n + 1}$, and $\nabla$ the submanifold spin connection on $M$. Applied to the sphere, we have $\nu(x) = x$ and $\W = -\id_{TS^n}$. For positive constant sections $\psi \in \Gamma(\R^{n + 1}, \Delta_{n + 1})$ (of which the space is $2^{\floor{n/2}}$-dimensional), we get
+$$
+    0 = \tilde\nabla_X\psi = \nabla_X\psi - \frac12X \cdot \nu \cdot \psi = \nabla_X\psi - \frac12 X \cdot_{S^n}\psi
+$$
+so that such a spinor restricts to a $\frac12$-Killing spinor on $S^n$. Further, for another section of the form $\nu \cdot \psi$, we get
+$$
+    -X \cdot_{S^n} (\nu \cdot \psi) = X \cdot \psi = \tilde\nabla_X(\nu \cdot \psi) = \nabla_X(\nu \cdot \psi) - \frac12X \cdot_{S^n} (\nu \cdot \psi)
+$$
+so that we get $2^{\floor{n/2}}$-dimensional spaces of $\pm\frac12$-Killing spinors on $S^n$.
+\section{The Dirac spectrum of a sphere}
+To motivate why we the Laplacian comes into play, a direct computation shows that for a $\mu$-Killing spinor (here again $\mu = \pm\frac12$), we have
+$$
+    (D + \mu I)^2(f\psi) = \brac{\Delta f + \brac{\frac{n - 1}{2}}^2f}\psi
+$$
+We will return to this formula later, but it is clear that knowledge about the spectrum of the Laplacian would thus directly translate to a statement on the spectrum of the Dirac operator $D$, and so such a result would be convenient. Indeed, the following holds.
+\subsection{Spectrum of the Laplacian}
+\begin{theorem}
+    The Laplacian $\Delta$ on $L^2(S^n)$ admits an orthonormal basis of eigenfunctions, with eigenvalues $\lambda_k = k(n + k - 1)$ of multiplicity $\frac{n + 2k - 1}{n + k - 1}{n + k - 1 \choose k}$, for $k \in \Z_{\geq 0}$.
+\end{theorem}
+This is quite a convenient result, though it certainly seems out of left field, and it's worth at least getting some idea of where these eigenvalues come from. At a point $x$, extending to an orthonormal basis $\set{x = x_1, x_2, \ldots, x_{n + 1}}$, for the geodesics $\gamma_i(s) = \cos(s)x + \sin(s)x_{i + 1}$ in geodesic normal coordinates, for $f \in C^\infty(\R^{n + 1})$, we can compute directly that $\frac{d^2(f \circ \gamma_j)}{ds^2}(0) = \frac{\partial^2f}{\partial x_{j + 1}^2}(x) - \frac{\partial f}{\partial x_1}(x)$, from which it follows that
+$$
+    \Delta_{\R^{n + 1}}(f)|_{S^n}(x) = -\sum_{j = 1}^{n + 1} \frac{\partial^2f}{\partial x_{j + 1}^2}(x) = \Delta_{S^n}(f|_{S^n}) - \frac{\partial^2 f}{\partial r^2}(x) - n\frac{\partial f}{\partial r}(x)
+$$
+Now for $f$ a homogeneous polynomial of degree $k$, we get $r\frac{\partial f}{\partial r} = kf$ and $r^2\frac{\partial^2 f}{\partial r^2} = k(k - 1)f$, and on the unit sphere the right-hand side reduces to $\Delta_{S^n}(f|_{S^n}) - k(n + k - 1)f|_{S^n}$. If we further choose $f$ to be harmonic, we see that $f$ restricts to a $k(n + k - 1)$-eigenvector of $\Delta_{S^n}$.
+\subsection{Putting it all together}
+Equipped with our result on the spectrum of the Laplacian, we formulate what we should get out of the Dirac operator $D$ on $L^2(\S_{S^n})$. This should have spectrum consisting of eigenvalues $\lambda_k^\pm = \pm \brac{\frac n2 + k}$ for $k \in \Z_{\geq 0}$, with multiplicity $2^{\floor{n / 2}}{n + k - 1 \choose k}$, corresponding to products of eigenfunctions for $\Delta$ and $\mu$-Killing spinors.
+
+Our previous formula gives that for a $k(n + k - 1)$-eigenvector $f$ of $\Delta$ and $\mu$-Killing spinor $\psi$, we have $(D + \mu I)^2(f\psi) = \brac{\frac{n - 1}{2} + k}^2(f\psi)$, and that this eigenspace is $2^{\floor{n/2}}\frac{n + 2k - 1}{n + k - 1}{n + k - 1 \choose k}$-dimensional. Letting $m(\lambda_k^\pm)$ be the associated multiplicity, since we know $D$ admits an orthonormal basis of eigenspinors, factoring $(D + \mu I)^2 - \brac{\frac{n - 1}{2} + k}^2I = (D + (\mu + \frac{n - 1}{2} + k)I)(D + (\mu - \frac{n - 1}{2} - k)I)$ shows that 
+$$
+    2^{\floor{n/2}}\brac{{n + k - 1 \choose k} + {n + k - 2 \choose k - 1}} = \frac{n + 2k - 1}{n + k - 1}{n + k - 1 \choose k} = m(\lambda_k^\mp) + m(\lambda_k^\pm)
+$$
+Inducting on $k$, for $k = 0$ the left-hand side is exactly $2^{\floor{n/2}}$, and we have already found $2^{\floor{n/2}}$ such eigenspinors (namely the Killing spinors as before), and the inductive step follows immediately from the above formula, and we have our desired computation of the Dirac spectrum of $S^n$, for $n \geq 2$.
+
+% (Heuristic -- state a few formulae)
+
+% Sketch idea
+\end{document}

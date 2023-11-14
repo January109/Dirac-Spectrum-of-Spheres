@@ -1,0 +1,265 @@
+\documentclass[11pt]{report}
+\usepackage{styles} 
+\usepackage{titlesec}
+\titleformat{\chapter}{\bf\LARGE}{\thechapter.}{20pt}{\bf\LARGE}
+\titleclass{\chapter}{straight}
+\renewcommand{\S}{\mathcal{S}}
+\DeclareMathOperator{\grad}{grad}
+\title{The Dirac spectra of spheres}
+\begin{document}
+\maketitle
+\begin{abstract}
+    
+\end{abstract}
+\chapter{Background}
+\vspace*{-30pt}
+Keys: Sphere with Riemannian metric induced by inclusion (as a hypersurface) admits a unique spin structure if $n \geq 2$. Know the Dirac operator admits an orthonormal basis of eigenvectors over compact manifolds. Use Killing spinors to trivialise spinor bundle over sphere
+% Give context - Dirac operators admit orthonormal bases of eigenvectors over compact manifolds. Let $n \geq 2$, and (sphere with metric induced by inclusion) (spin structure is unique). Idea: Use Killing spinors to trivialise spinor bundle over sphere, using fact that sphere is a hypersurface in Euclidean space. ()
+
+Notation: $S_M$ the spinor bundle over $M$, $\cdot$ Clifford multiplication, $D$ a fixed Dirac operator, $\SO(TM)$ the principal $\SO(n)$ bundle (frame bundle), $\Spin(TM)$ the principal $\Spin(n)$ bundle associated to $M$.
+
+% We compute the Dirac spectra of spheres $S^n$ for $n \geq 3$. 
+
+[Metric] connection on a vector bundle (compatible with inner products) $X\lrangle{\varphi, \psi} = \lrangle{\nabla_X \varphi, \psi} + \lrangle{\varphi, \nabla_X \psi}$
+
+% Define compatible connections and inner products (usual Leibniz rule), identification of Clifford algebra with $\Lambda^*\R^n$
+
+[[Clifford multiplication on Manifold]] ??
+
+\begin{definition}
+    Let $M^n$ be a Riemannian spin manifold, and $\nabla$ its Levi-Civita connection. We say a connection $\nabla^S$ on $S_M$ is \emph{compatible} if 
+    $$
+        \nabla^S_X(Y \cdot \varphi) = (\nabla_X Y) \cdot \varphi + Y \cdot \nabla^S_X \varphi
+    $$
+    for all $\varphi \in S_M$ and $X, Y \in TM$.
+
+    % add metric ??
+\end{definition}
+As in $\Cl(\R^n)$, every Riemannian spin manifold admits a metric and compatible connection, and a Hermitian inner product which is compatible in the following sense (and unique up to scale):
+\begin{proposition}
+    Let $M$ be a Riemannian spin manifold. Then
+    \begin{enum}
+        \item There is a Hermitian inner product $\lrangle{-, -}$ on $\S_M$, such that $\lrangle{X \cdot \varphi, \psi} = -\lrangle{\varphi, X \cdot \psi}$ for all $X \in TM$ and $\varphi, \psi \in \S_M$, and this is pointwise unique up to scale; and
+        \item There is a metric, compatible connection $\nabla^\S$ on $\S_M$.
+    \end{enum}
+\end{proposition}
+We obtain this Hermitian inner product by averaging a Hermitian inner product over the subgroup on $\Delta_n$, and such a connection by lifting locally the connection 1-form given by the Levi-Civita connection on $M$. Fixing a positively-oriented local orthonormal frame $\set{e_j}_{j = 1}^n$, for a basis $\set{\sigma_\a}_{\a = 1}^{2^{\floor{n/2}}}$ for $\Delta_n$, we get a corresponding local spinorial frame $\varphi_\a = [(\tilde s, \sigma_\a)]$ on $\S_M$, for $\tilde s$ the preimage of $(e_1, \ldots, e_n)$ under $\Spin(TM) \to \SO(TM)$. This gives the following explicit local expression for this connection:
+\begin{proposition}
+    Let $(M^n, g)$ be a Riemannian spin manifold, $\set{e_j}_{j = 1}^n$ be a positively-oriented local orthonormal frame for $TM$, and $\set{\varphi_\a}_{\a = 1}^{2^{\floor{n/2}}}$ be a corresponding spinorial frame. Then
+    $$
+        \nabla^S \varphi_\a = \frac14\sum_{j, k = 1}^n g(\nabla e_j, e_k)e_j \cdot e_k \cdot \varphi_\a
+    $$
+\end{proposition}
+A proof of this can be found in \textbf{[[put reference]]}. In particular, it follows from this that the curvature $R^\nabla$ of $\nabla^S$ can be expressed locally in terms of the curvature $R$ of the Levi-Civita connection, as
+$$
+    R^\nabla_{X, Y}\varphi = \frac14\sum_{j, k = 1}^n g(R_{X, Y}e_j, e_k)e_j \cdot e_k \cdot \varphi_\a
+$$
+This formula gives us the following formula, \emph{which we will use later.}
+\begin{lemma}
+    For a Riemannian spin manifold $(M^n, g)$ with Ricci-tensor $\Ric$, $X \in TM$ and $\varphi \in \S_M$, we have
+    $$
+        \sum_{j = 1}^n e_j \cdot R_{X, e_j}^\nabla \varphi = \frac12 \Ric(X) \cdot \varphi
+    $$
+\end{lemma}
+The proof of this is just an application of the above formula, using the first Bianchi identity and the antisymmetry of the curvature tensor, and can be found in \textbf{[Lemma 1.2.4]}.
+\vspace*{-40pt}
+\chapter{Killing spinors}
+\vspace*{-30pt}
+\begin{definition}
+    Let $(M^n, g)$ be a Riemannian spin manifold, and $\a \in \C$. An \emph{$\a$-Killing spinor} is a section $\psi \in \Gamma(\S_M)$ such that $\nabla_X\psi = \a X \cdot \psi$ for all $X \in TM$.
+\end{definition}
+Note that an $\a$-Killing spinor $\psi$ is an $(-n\a)$-eigenvector of any Dirac operator $D$, as in local coordinates we have
+$$
+    D\psi = \sum_{j = 1}^n e_j \cdot \nabla_{e_j} \psi = \sum_{j = 1}^n e_j \cdot \a e_j \cdot \psi = -n \a \psi
+$$
+We look to compute the Killing spinors on $S^n$, since this will give a convenient collection of spinors to work with. We compute this using the inclusion $S^n \hookrightarrow \R^{n + 1}$, and for this we will need the following. 
+% (Trivialise - rank of spinor bundle is $2^{\floor{n/2} + 1}$ over $\R$)
+\begin{proposition}
+    Let $\tilde M^{n + 1}$ be a Riemannian spin manifold with connection $\tilde\nabla$, and $\iota : M^n \to \tilde M^{n + 1}$ be an immersed oriented Riemannian hypersurface, with connection $\nabla$ and unit normal $\nu \in \Gamma(T^\perp M)$, so that $\set{v_1, \ldots, v_n, \nu}$ is a positively-oriented orthonormal frame whenever $\set{v_1, \ldots, v_n}$ is. Then $M$ is spin with induced spin structure so that there is a unitary isomorphism
+    $$
+        \S_{\tilde M}|_M \cong \begin{cases}
+            \S_M &n \text{ even} \\
+            \S_M \oplus \S_M &n \text{ odd}
+        \end{cases}
+    $$
+    given by $\varphi \mapsto \varphi$, where the copies of $\S_M$ correspond to the splitting $\S_{\tilde M}|_M \cong \S_{\tilde M}^+|_M \oplus \S_{\tilde M}^-|_M$ for $n$ odd. We further have
+    $$
+        X \cdot \nu \cdot \varphi = \begin{cases}
+            X \cdot_M \varphi &n \text{ even} \\
+            X \cdot_M \varphi^+ - X \cdot_M \varphi^- &n \text{ odd}
+        \end{cases}
+    $$
+    and
+    $$
+        \tilde\nabla_X\varphi = \nabla_X\varphi - \frac12\tilde\nabla_X\nu \cdot \nu \cdot \varphi
+    $$
+    for all $X \in TM$ and $\varphi \in \S_{\tilde M}|_M$, where $\cdot_M$ denotes Clifford multiplication in $M$.
+\end{proposition}
+\begin{proof}
+    We note that under the map
+    \begin{align*}
+        i : \Fr_{SO}(M) &\to \Fr_{SO}(\tilde M)|_M \\
+        (e_1, \ldots, e_n) &\mapsto (e_1, \ldots, e_n, \nu)
+    \end{align*}
+    the pullback of $P_{\Spin}(\tilde M)|_M$ to $\Fr_{SO}(M)$ gives a 2-covering of $\Fr_{SO}(M)$, and this is a principal $\Spin(n)$-bundle as the image of $i$ is closed under the action of $\SO(n) \subseteq \SO(n + 1)$ on frames, hence so is $i^*(P_{\Spin}(\tilde M)|_M)$ under the action of $\Spin(n) \subseteq \Spin(n + 1)$. The formula relating Clifford multiplication on $\tilde M$ to $M$ comes from the usual embedding of $\Cl_n(\R)$ into $\Cl_{n + 1}^0(\R)$ by $e_i \mapsto e_i \cdot e_{n + 1}$.
+
+    For the final identity, fixing a positively-oriented local orthonormal frame $\set{e_j}_{j = 1}^n$, for the spinorial frame $\set{\varphi_\a}$ corresponding to $\set{e_1, \ldots, e_n, \nu}$, in local coordinates we have
+    $$
+        \tilde\nabla_X\varphi_\a = \frac14\brac{\sum_{j, k = 1}^n g(\tilde\nabla_X e_j, e_k)e_j \cdot e_k + \sum_{j = 1}^n g(\tilde\nabla_X e_j, \nu)e_k \cdot \nu + \sum_{k = 1}^ng(\tilde\nabla_X\nu, e_k)\nu \cdot e_k + g(\tilde\nabla_X\nu, \nu)\nu \cdot \nu} \cdot \varphi_\a
+    $$
+    We note that $\W(X) = -\nabla_X\nu \in TM$ is the Weingarten map of $M$, and so $\tilde\nabla_XY = \nabla_XY - g(\nabla_X\nu, Y)\nu$ and $g(\nabla_X\nu, \nu) = 0$. For the first term we get $g(\tilde \nabla_X e_j, e_k) = g(\nabla_Xe_j, e_k) - g(\nabla_X\nu, e_j)g(\nu, e_k) = g(\nabla_X e_j, e_k)$, so 
+    $$
+        \frac14\sum_{j, k = 1}^n g(\nabla_Xe_j, e_k)e_j \cdot e_k \cdot \varphi_\a = \nabla_X\varphi_\a
+    $$
+    using our previous formula on $M$. We have $g(\tilde\nabla_X e_j, \nu) = g(\nabla_X e_j, \nu) - g(\tilde\nabla_X\nu, e_j)g(\nu, \nu) = -g(\tilde\nabla_X\nu, e_j)$, so 
+    $$
+        \sum_{j = 1}^n g(\tilde\nabla_X e_j, \nu) e_j = \sum_{j = 1}^n g(\tilde\nabla_X\nu, e_j)e_j = \tilde\nabla_X\nu - g(\tilde\nabla_X\nu, \nu)\nu = \tilde\nabla_X\nu
+    $$
+    For the third term we note $\nu \cdot e_k = -e_k \cdot \nu$ as $\nu$ and $e_k$ are orthogonal, and so the third term in the brackets evaluates to $\tilde\nabla_X\nu \cdot \nu$. The last term vanishes, and putting this together gives 
+    $$
+        \tilde\nabla_X\varphi_\a = \nabla_X\varphi_\a + \frac14\brac{-\nabla_X\nu \cdot \nu \cdot \varphi_\a - \nabla_X\nu \cdot \nu \cdot \varphi_\a + 0} = \nabla_X\varphi_\a - \frac12\tilde\nabla_X\nu \cdot \nu \cdot \varphi_\a
+    $$
+\end{proof}
+Applying this to the case of $S^n \subseteq \R^{n + 1}$ for $n \geq 2$, $S^n$ has Weingarten map $\W = -\id_{TS^n}$ with respect to the normal $\nu(x) = x$. We note that the positive (when $n$ is odd) part of $S_{\R^{n + 1}} = \R^{n + 1} \times \Delta_{n + 1}$ is $2^{\floor{n/2}}$-dimensional, and so for any positive constant section $\psi \in \Gamma(\R^{n + 1}, S_{\R^{n + 1}})$ and $X \in TS^n$ we have
+$$
+    0 = \tilde\nabla_X\psi = \nabla_X\psi + \frac12\W(X) \cdot \nu \cdot \psi = \nabla_X\psi - \frac12X \cdot_{S^n}\psi
+$$
+so $\nabla_X\psi = \frac12 X \cdot_{S^n} \psi$, and $\psi$ is a $\frac12$-Killing spinor, and we get $2^{\floor{n/2}}$ pointwise linearly independent $\frac12$-Killing spinors $\set{\psi_i}$. For the same class of spinors, the spinors $\nu \cdot \psi$ satisfy
+$$
+    -X \cdot_{S^n} (\nu \cdot \psi) = -X \cdot \nu \cdot \nu \cdot \psi = X \cdot \psi = \tilde\nabla_X(\nu \cdot \psi) = \nabla_X(\nu \cdot \psi) - \frac12 X \cdot_{S^n}(\nu \cdot \psi)
+$$
+so $\nu \cdot \psi$ is a $-\frac12$-Killing spinor, and we also get $2^{\floor{n/2}}$ pointwise linearly independent $-\frac12$-Killing spinors $\eta_i = \nu \cdot \psi_i$. Thus as $\rank_\C(\S_{S^n}) = 2^{\floor{n/2}}$, this yields trivialisations of $\S_{S^n}$ by both $\frac12$ and $-\frac12$-Killing spinors.
+
+% Define Killing and twistor spinors
+% Killing spinors on $S^n$, $\R^{n + 1}$ - A1.3.2., A2.1.2/3, A4.1
+% Spinors on $S^n$
+% Proposition A2.1.2/3 (not in full generality): 
+% \begin{proposition}
+%     A2.1.3: Let $(M^n, g)$ be a compact Riemannian spin manifold of dimension $n \geq 3$, and $\psi$ be a twistor spinor 
+% \end{proposition}
+% Remark that $S^n$ has constant sectional curvatures, hence constant Ricci curvature.
+
+% Proposition A4.1 (for Friedrich's inequality??): Use compatible inner product, compute curvature at each point.
+
+% State Lichnerowicz formula.
+
+% \begin{theorem}
+%     Friedrich's inequality
+% \end{theorem}
+\vspace*{-40pt}
+\chapter{The Dirac spectrum of the sphere}
+\vspace*{-30pt}
+We compute the Dirac spectrum of the sphere by first relating it to the spectrum of the Laplacian on $S^n$. We note that $\Cl(\R^n) \cong \Lambda^*\R^n$, and that under this linear isomorphism, Clifford multiplication by $x \in \R^n$ is given by $x \cdot y \simeq x \wedge y - x \ \lrcorner \  y$, which we can write as $(x^\flat \wedge) - (x \ \lrcorner)$. Let $d$ and $\delta$ denote the exterior differential and codifferential on $M$, so that $\Delta = \delta d$ is the scalar Laplace operator on $C^\infty(M)$. We also write $\grad(f)$ for the gradient vector field of $f \in C^\infty(M)$, given by $\grad(f) = \sum_{j = 1}^n e_j(f)e_j = (df)^\sharp$ for a local orthonormal basis of $TM$.
+\begin{lemma}
+    Let $(M, g)$ be a Riemannian spin manifold, $\varphi \in \Gamma(M, \S_M)$ and $f \in C^\infty(M)$. Then 
+    \begin{enum}
+        \item $D(f\varphi) = \grad(f) \cdot \varphi + f D\varphi$; and
+        \item $D^2(f\varphi) = fD^2\varphi - 2\nabla_{\grad(f)}\varphi + (\Delta f)\varphi$
+    \end{enum}
+\end{lemma}
+\begin{proof}
+    Fixing a local orthonormal frame $\set{e_j}_{j = 1}^n$ for $TM$, we find
+    $$
+        D(f\varphi) = \sum_{j = 1}^n e_j \cdot \nabla_{e_j}(f \varphi) = \sum_{j = 1}^n e_j \cdot (e_j(f)\varphi + f \nabla_{e_j}\varphi) = \grad(f) \cdot \varphi + fD\varphi
+    $$
+    In computing $D^2(f\varphi)$, we first have that
+    \begin{align*}
+        D(\grad(f) \cdot \varphi) = \sum_{j = 1}^n e_j \cdot \nabla_{e_j}(\grad(f) \cdot \varphi) = \sum_{j = 1}^n e_j \cdot (\nabla_{e_j}\grad(f)) \cdot \varphi + \sum_{j = 1}^n e_j \cdot \grad(f) \cdot \nabla_{e_j}\varphi
+    \end{align*}
+    For the first term, identifying vector fields with 1-forms through the metric $g$ gives
+    $$
+        \sum_{j = 1}^n e_j \cdot \nabla_{e_j}\grad(f) = \sum_{j = 1}^n e_j \wedge \nabla_{e_j}df - \sum_{j = 1}^n e_j \lrcorner \nabla_{e_j}df = (d + \delta)df = \delta df = \Delta f
+    $$
+    and for the second term, using the Clifford multiplication we find
+    $$
+        \sum_{j = 1}^n e_j \cdot \grad(f) \cdot \nabla_{e_j}\varphi = -\grad(f) \cdot \brac{\sum_{j = 1}^n e_j \cdot \nabla_{e_j}\varphi} - \sum_{j = 1}^n 2g(\grad(f), e_j)\nabla_{e_j}\varphi = -\grad(f) \cdot D\varphi - 2\nabla_{\grad(f)}\varphi
+    $$
+    We thus have
+    \begin{align*}
+        D^2(f\varphi) = D(\grad(f) \cdot \varphi + fD\varphi) &= \brac{\Delta f \cdot \varphi - \grad(f) \cdot D\varphi - 2\nabla_{\grad(f)}\varphi} + \grad(f) \cdot D\varphi + fD^2\varphi \\
+        &= fD^2\varphi - 2\nabla_{\grad(f)}\varphi + (\Delta f)\varphi
+    \end{align*}
+\end{proof}
+We recall the spectrum of the scalar Laplacian on the sphere:
+\begin{theorem}
+    For $n \geq 1$, the Laplacian $\Delta_{S^n}$ on $L^2(S^n)$ admits an orthonormal basis of eigenvectors, with eigenvalues $\lambda_k = k(n + k - 1)$ for $k \in \Z_{\geq 0}$, with multiplicity $\frac{n + 2k - 1}{n + k - 1}{n + k - 1 \choose k} = {n + k - 1 \choose k} + {n + k - 2 \choose k - 1}$.
+\end{theorem}
+We give a sketch of why each of these values appears as an eigenvalue of the Laplacian, and the exact details of the multiplicities can be found in \textbf{berger..}.
+
+For $x \in S^n$, we can compute the Laplacian in geodesic normal coordinates around $x$, by extending $x$ to an orthonormal basis $\set{x_1, x_2, \ldots, x_{n + 1}}$ for $\R^{n + 1}$ (with $x = x_1$), and taking the corresponding geodesics $\gamma_i(s) = \cos(s)x_1 + \sin(s)x_{j + 1}$ for $1 \leq j \leq n$. For $f \in C^\infty(\R^{n + 1})$, in this case the Laplacian is just
+$$
+    \Delta_{S^n}(f|_{S^n})(x) = -\sum_{j = 2}^{n + 1}\frac{d^2}{ds^2}(f \circ \gamma_j)(0)
+$$
+The chain rule gives $\frac{d(f \circ \gamma_i)}{ds}(s) = -\sin(s)\frac{\partial f}{\partial x_1}(\gamma(s)) + \cos(s)\frac{\partial f}{\partial x_{j + 1}}(\gamma(s))$. On taking the second partial derivative and evaluating at zero, we find
+$$
+    \frac{d^2(f \circ \gamma_i)}{ds^2}(0) = -\cos(0)\frac{\partial f}{\partial x_1}(\gamma(0)) + \cos^2(0)\frac{\partial^2 f}{\partial x_{j + 1}^2}(\gamma(0)) = -\frac{\partial f}{\partial x_1}(x) + \frac{\partial^2 f}{\partial x_j^2}(x)
+$$
+and in particular noting that $x_1$ is the radial direction $r$, we see
+\begin{align*}
+    \Delta_{\R^{n + 1}}(f)|_{S^n}(x) = -\sum_{j = 1}^{n + 1}\frac{\partial^2}{\partial x_j^2}(x) &= -\sum_{j = 2}^{n + 1}\brac{\frac{\partial^2 f}{\partial x_j^2}(x) - \frac{\partial f}{\partial x_1}(x)} - \frac{\partial^2 f}{\partial x_1^2}(x) - n\frac{\partial f}{\partial x_1}(x) \\ 
+    &= \Delta_{S^n}(f|_{S^n})(x) - \frac{\partial^2 f}{\partial r^2}(x) - n\frac{\partial f}{\partial r}(x)
+\end{align*}
+so that $\Delta_{\R^{n + 1}}(f)|_{S^n} = \Delta_{S^n}(f|_{S^n})(x) - \frac{\partial^2 f}{\partial r^2} - n\frac{\partial f}{\partial r}$ Now for a homogeneous polynomial $f$ of degree $k$ we have $r\frac{\partial f}{\partial r} = kf$ and $r^2\frac{\partial^2 f}{\partial r^2} = k(k - 1)$, so on restricting to $S^n$ (where $r = 1$) we find
+$$
+    \Delta_{\R^{n + 1}}(f)|_{S^n} = \Delta_{S^n}(f|_{S^n}) - k(n + k - 1)f
+$$
+and in particular if we choose $f$ to be harmonic (i.e. such that $\Delta_{\R^{n + 1}}(f) = 0$), we get 
+$$
+    \Delta_{S^n}(f|_{S^n}) = k(n + k - 1)f|_{S^n}
+$$
+so that $f|_{S^n}$ is a $k(n + k - 1)$-eigenvector of $\Delta_{S^n}$. 
+% Define Laplacian and mention local expression in terms of an orthonormal frame, give spectrum of Laplacian (sketch, state theorem) -- Heuristic, proof of theorem?
+% Local expression for connection, curvature (statements, references)
+% Lemma 1.3.3. 
+
+We are now ready to compute the Dirac spectrum of $S^n$, which we will split into a few small steps. In the following results, $\mu$ is understood to be either $1/2$ or $-1/2$. We first need to relate the spectra of Dirac operators to the spectrum of the Laplacian, which the following result allows us to do nicely.
+\begin{lemma}
+    Let $n \geq 2$, and $D$ be a Dirac operator on $S^n$. Then for any $\mu$-Killing spinor $\varphi$ and $f \in C^\infty(S^n)$, we have
+    $$
+        (D + \mu I)^2(f\varphi) = \brac{\Delta f + \brac{\frac{n - 1}{2}}^2 f}\varphi
+    $$
+\end{lemma}
+\begin{proof}
+    Recall that $D\varphi = -n\mu\varphi$ as $\varphi$ is a $\mu$-Killing spinor, so using the formulas in \textbf{Lemma 2} we compute
+    \begin{align*}
+        D^2(f\varphi) &= fD^2\varphi - 2\nabla_{\grad(f)}\varphi + (\Delta f)\varphi \\
+        &= \frac{n^2}{4}f\varphi - 2\mu \grad(f) \cdot \varphi + (\Delta f)\varphi \\
+        &= \frac{n^2}{4}f\varphi - 2\mu(D(f\varphi) - fD\varphi) + (\Delta f)\varphi \\
+        &= \brac{\frac{n^2}{4} - \frac{n}{2}}f\varphi - 2\mu D(f\varphi) + (\Delta f)\varphi
+    \end{align*}
+    and thus
+    $$
+        (D + \mu I)^2(f\varphi) = D^2(f\varphi) + 2\mu D(f\varphi) + \frac14f\varphi = \brac{(\Delta f) + \brac{\frac{n - 1}{2}}^2}\varphi
+    $$
+\end{proof} Combining this with the spectrum of the Laplacian, we have the following for the Dirac spectrum of the sphere.
+\begin{theorem}
+    Let $n \geq 2$. Then the spectrum of the Dirac operator $D$ on $S^n$ is $\set{\pm\brac{\frac n2 + k} \mid k \in \Z_{\geq 0}}$, with the eigenvalues $\lambda_k^\pm = \pm\brac{\frac{n}{2} + k}$ having multiplicity $2^{\floor{n/2}}{n + k - 1 \choose k}$.
+\end{theorem}
+\begin{proof}
+    Fix an orthonormal basis of eigenfunctions $\set{f_m}_{m \in \N}$ for $\Delta$ on $S^n$, and a trivialisation $\set{\varphi_j}_{j = 1}^{2^{\floor{n/2}}}$ of $\S_{S^n}$ by $\mu$-Killing spinors which is pointwise an orthonormal basis. Then by our previous lemma it follows that $\set{f_m\varphi_j \mid m \in \N, 1 \leq j \leq 2^{\floor{n/2}}}$ is an orthonormal basis of $L^2(\S_{S^n})$ consisting of eigenvectors of $(D + \mu I)^2$, of eigenvalues $k(n + k - 1) + \brac{\frac{n - 1}{2}}^2 = \brac{\frac{n - 1}{2} + k}^2$, and multiplicity $2^{\floor{n/2}}\frac{n + 2k - 1}{n + k - 1}{n + k - 1 \choose k}$. Thus any eigenvalue $\lambda$ of $D$ is of the form $-\mu \pm \brac{\frac{n - 1}{2} + k}$ for some $k \in \Z_{\geq 0}$ and both $\mu = 1/2$ and $\mu = -1/2$, so $\lambda \in \set{\pm \brac{\frac n2 + k} \mid k \in \Z_{\geq 0}}$.
+
+    To show the claimed eigenvalues all appear with the claimed multiplicities, we use induction. Writing $\lambda_k^\pm = \pm\brac{\frac n2 + k}$, since we know $D$ admits an orthonormal basis of eigenvectors, by the factorisation ${(D + \mu I)^2 - \brac{\frac{n - 1}{2} + k}^2I = \brac{D + \brac{\mu + \frac{n - 1}{2} + k}I}\brac{D + \brac{\mu - \frac{n - 1}{2} - k}I}}$ we have
+    $$
+        \ker\brac{\brac{D + \mu I}^2 - \brac{\frac{n - 1}{2} + k}^2I} = \ker\brac{D + \brac{\brac{\mu + \frac12} - \frac{n}{2} - k}I} \oplus \ker\brac{D + \brac{\brac{\mu - \frac12} + \frac{n}{2} + k}I}
+    $$
+    Letting $m(\lambda_k^\pm)$ be the multiplicity of $\lambda_k^\pm$, taking dimensions in the above equation gives 
+    $$
+        2^{\floor{n/2}}\brac{{n + k - 2 \choose k - 1} + {n + k - 1 \choose k}} = m(\lambda_{k - 1}^\mp) + m(\lambda_k^\pm)
+    $$
+    Now when $k = 0$, the left-hand side of the above is $2^{\floor{n/2}}$. The $\mu$-Killing spinors yield a $2^{\floor{n/2}}$-dimensional space of $n\mu$-eigenvectors, so the space of $\pm \frac n2$-eigenvectors has the claimed dimension. For $k > 0$, the above formula immediately gives us this result, since we have $m(\lambda_{k - 1}^\mp) = 2^{\floor{n/2}}{n + k - 2 \choose k - 1}$ if and only if $m(\lambda_k^\pm) = {n + k - 1 \choose k}$.
+\end{proof}
+
+Spectra of the Dirac operator
+
+References
+
+Ginoux
+
+Christian Bar
+
+Berger
+
+Chavel
+
+% https://sites.pitt.edu/~hajlasz/Notatki/Functional%20Analysis2.pdf
+\end{document}
